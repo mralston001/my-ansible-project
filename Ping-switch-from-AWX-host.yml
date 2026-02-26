@@ -1,0 +1,13 @@
+---
+- name: ICMP Ping CML Switch
+  hosts: cml_switches
+  gather_facts: no
+  tasks:
+    - name: Ping switch from AWX host
+      ansible.builtin.shell: "ping -c 4 {{ inventory_hostname }}"
+      register: ping_output
+      ignore_errors: yes
+
+    - name: Show ping output
+      debug:
+        var: ping_output.stdout
