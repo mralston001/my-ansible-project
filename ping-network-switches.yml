@@ -1,6 +1,6 @@
 ---
 - name: Ping network switches
-  hosts: switches               # Inventory group containing your switches
+  hosts: all               # Inventory group containing your switches
   gather_facts: no              # No need to gather system facts for network devices
   connection: network_cli       # Use network CLI connection for switches
   vars:
