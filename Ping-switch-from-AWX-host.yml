@@ -1,6 +1,6 @@
 ---
 - name: ICMP Ping CML Switch
-  hosts: cml_switches
+  hosts: Lab-Devices
   gather_facts: no
   tasks:
     - name: Ping switch from AWX host
