@@ -1,0 +1,21 @@
+---
+- name: Ping CML Lab Switch
+  hosts: cml_switches
+  gather_facts: no
+  connection: network_cli  # Use network_cli for Cisco IOS devices
+  vars:
+    ansible_network_os: cisco.ios.ios
+    ansible_user: "{{ lookup('env', 'CML_USER') | default('admin') }}"
+    ansible_password: "{{ lookup('env', 'CML_PASS') | default('password') }}"
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+  tasks:
+    - name: Ping from switch to a target IP
+      cisco.ios.ios_ping:
+        dest: 8.8.8.8
+        count: 5
+      register: ping_result
+
+    - name: Show ping results
+      debug:
+        var: ping_result
