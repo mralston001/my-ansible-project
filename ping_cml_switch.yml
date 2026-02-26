@@ -1,0 +1,19 @@
+---
+- name: Ping from CML lab switch
+  hosts: cml_switches
+  gather_facts: no
+  collections:
+    - cisco.ios
+
+  vars:
+    target_ip: "192.168.100.10"  # Change to the IP you want to ping
+
+  tasks:
+    - name: Ping target from switch
+      ios_ping:
+        dest: "{{ target_ip }}"
+      register: ping_result
+
+    - name: Show ping results
+      debug:
+        var: ping_result
