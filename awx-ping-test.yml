@@ -1,0 +1,15 @@
+---
+- name: AWX Ping Test
+  hosts: all                # Target all hosts in your AWX inventory
+  gather_facts: no          # Skip gathering facts for faster execution
+  vars:
+    ansible_connection: ssh # Default for Linux; override in inventory for Windows
+  tasks:
+
+    - name: Ping Linux hosts
+      ansible.builtin.ping:
+      when: ansible_os_family is defined and ansible_os_family != "Windows"
+
+    - name: Ping Windows hosts
+      ansible.windows.win_ping:
+      when: ansible_os_family is defined and ansible_os_family == "Windows"
