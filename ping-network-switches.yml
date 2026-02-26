@@ -1,21 +1,6 @@
----
-- name: Ping network switches
-  hosts: all               # Inventory group containing your switches
-  gather_facts: no              # No need to gather system facts for network devices
-  connection: network_cli       # Use network CLI connection for switches
-  vars:
-    ansible_network_os: ios     # Change to your switch OS (ios, nxos, eos, etc.)
-    ansible_user: admin         # Switch login username
-    ansible_password: "{{ vault_switch_password }}"  # Use Ansible Vault for security
-    ansible_become: yes
-    ansible_become_method: enable
-
+- name: Ping switches from AWX
+  hosts: all
+  gather_facts: no
   tasks:
-    - name: Test reachability with ping command
-      ansible.netcommon.cli_command:
-        command: ping 8.8.8.8   # Change to the IP you want to test from the switch
-      register: ping_result
-
-    - name: Show ping output
-      debug:
-        var: ping_result.stdout_lines
+    - name: Ansible ping module
+      ansible.builtin.ping:
