@@ -1,0 +1,13 @@
+---
+- name: Ping network device from shell
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Execute ICMP ping
+      ansible.builtin.shell: "ping -c 1 {{ inventory_hostname }}"
+      delegate_to: localhost
+      register: ping_result
+
+    - name: Display ping output
+      ansible.builtin.debug:
+        var: ping_result.stdout_lines
