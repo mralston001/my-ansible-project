@@ -1,7 +1,6 @@
 ---
-  children:
-    cml_switches:
-      hosts:
+- name: AWX Inventory Test
+  hosts: all
         cml-sw1:
           ansible_host: 10.0.5.51   # Management IP of the CML switch
           ansible_user: admin             # CML switch username
