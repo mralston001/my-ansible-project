@@ -1,29 +1,22 @@
 ---
-- name: SSH into switch and run commands
+- name: SSH into CML switch and run commands
   hosts: all
   gather_facts: no
-  connection: network_cli  # Uses SSH for network devices
+  connection: network_cli
+
   vars:
-    ansible_network_os: ios  # Change to nxos, eos, etc. for your switch
-    ansible_command_timeout: 60
+    ansible_network_os: cisco.ios.ios
+    ansible_user: "{{ switch_username }}"
+    ansible_password: "{{ switch_password }}"
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
 
   tasks:
-    - name: Show version
-      ios_command:
+    - name: Run show version
+      cisco.ios.ios_command:
         commands:
           - show version
       register: version_output
 
-    - name: Display version output
+    - name: Display output
       debug:
         var: version_output.stdout_lines
-
-    - name: Show interface status
-      ios_command:
-        commands:
-          - show ip interface brief
-      register: interface_output
-
-    - name: Display interface output
-      debug:
-        var: interface_output.stdout_lines
