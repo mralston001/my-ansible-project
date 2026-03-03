@@ -1,0 +1,14 @@
+---
+- name: Log into Switch CLI and Run Command
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run Show Command
+      cisco.ios.ios_command:
+        commands:
+          - show version
+      register: output
+
+    - name: Print Output
+      debug:
+        var: output.stdout_lines
