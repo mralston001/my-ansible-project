@@ -3,8 +3,8 @@ all:
     cml_switches:
       hosts:
         cml-sw1:
-          ansible_host: 192.168.100.101   # Management IP of the CML switch
+          ansible_host: 10.0.5.51   # Management IP of the CML switch
           ansible_user: admin             # CML switch username
-          ansible_password: adminpass     # CML switch password
+          ansible_password: admin123     # CML switch password
           ansible_network_os: cisco.ios.ios
           ansible_connection: network_cli
