@@ -1,5 +1,4 @@
 ---
-all:
   children:
     cml_switches:
       hosts:
