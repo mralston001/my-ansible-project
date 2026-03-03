@@ -1,0 +1,26 @@
+---
+- name: Log into Proxmox and list VMs
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    # It is best practice to store these in AWX Credentials
+    pve_url: "https://10.0.5.201"
+    pve_user: "root@pam"
+    pve_token_id: "ansible@pve!token"
+    pve_token_secret: "your-secret-uuid"
+  
+  tasks:
+    - name: Gather Proxmox VM facts
+      community.general.proxmox_kvm:
+        api_host: "{{ pve_url | urlsplit('hostname') }}"
+        api_port: "{{ pve_url | urlsplit('port') or 8006 }}"
+        api_user: "{{ pve_user }}"
+        api_token_id: "{{ pve_token_id }}"
+        api_token_secret: "{{ pve_token_secret }}"
+        validate_certs: false # Set to true if you have proper SSL
+      register: vms
+
+    - name: Display VM list
+      debug:
+        var: vms
