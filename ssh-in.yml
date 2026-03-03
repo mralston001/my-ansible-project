@@ -1,6 +1,6 @@
 ---
 - name: SSH into CML switch and run commands
-  hosts: 10.0.5.51
+  hosts: cml_switches
   gather_facts: no
   connection: network_cli
 
