@@ -1,0 +1,29 @@
+---
+- name: SSH into switch and run commands
+  hosts: all
+  gather_facts: no
+  connection: network_cli  # Uses SSH for network devices
+  vars:
+    ansible_network_os: ios  # Change to nxos, eos, etc. for your switch
+    ansible_command_timeout: 60
+
+  tasks:
+    - name: Show version
+      ios_command:
+        commands:
+          - show version
+      register: version_output
+
+    - name: Display version output
+      debug:
+        var: version_output.stdout_lines
+
+    - name: Show interface status
+      ios_command:
+        commands:
+          - show ip interface brief
+      register: interface_output
+
+    - name: Display interface output
+      debug:
+        var: interface_output.stdout_lines
