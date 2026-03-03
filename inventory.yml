@@ -1,7 +1,6 @@
 ---
 - name: AWX Inventory Test
-  hosts: all
-          ansible_host: 10.0.5.51   # Management IP of the CML switch
+  hosts: 10.0.5.51
           ansible_user: admin             # CML switch username
           ansible_password: admin123     # CML switch password
           ansible_network_os: cisco.ios.ios
